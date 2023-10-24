@@ -28,7 +28,8 @@ for j in range(size_col):
         Q_load[i][j] = K[i][j]*delta_T[i]/1000
         if Q_load[i][j] < 0:
             Q_load[i][j] = 0
-        
+    
+    # Energy signature
     plt.scatter(meteo.iloc[:]['Temperature C'], Q_load[:, j])
     plt.xlabel("Temperature [C°]")
     plt.ylabel(r"Q$_{load}$ [kW]")
@@ -37,8 +38,21 @@ for j in range(size_col):
     plt.xlim(left = -15,right = 40)
     plt.xticks(np.arange(-15,45,5))
     plt.ylim(bottom = 0, top = ceil(Q_load[:, j].max()/10)*10)
-    plt.savefig(f"{str(bg.index[j])}.png")
+    plt.savefig(f"Energy-signature/{str(bg.index[j])}.png")
     plt.clf()
+    
+    # Load curve
+    plt.plot(np.arange(8760), Q_load[:, j])
+    plt.xlabel(r"$\tau$, time")
+    plt.ylabel(r"Q$_{load}$ [kW]")
+    plt.title(str(bg.index[j])+" load curve")
+    plt.ylim(bottom = 0, top = ceil(Q_load[:, j].max()/10)*10)
+    plt.xlim(left=0,right = 8760)
+    plt.xticks([15*24,46*24,74*24,105*24,135*24,166*24,196*24,227*24,258*24,288*24,319*24,349*24],["Jan-15","Feb-15","Mar-15","Apr-15","May-15","Jun-15","Jul-15","Aug-15","Sep-15","Oct-15","Nov-15","Dec-15"],rotation = 45)
+    plt.fill_between(np.arange(8760), Q_load[:, j], 0, color='#1f77b4', alpha=1)
+    plt.savefig(f"Load-curve/{str(bg.index[j])}-load-curve.png")
+    plt.clf()
+    
     print(str(bg.index[j])+" printed")
 
 
