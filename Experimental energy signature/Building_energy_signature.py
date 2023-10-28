@@ -20,7 +20,7 @@ for building in range(len(building_index)):
     index = 0   # Variable gardant l'index de la première heure pile
     P = 0       # Somme de toutes les puissances mesurées sur une heure
     hour_passed = 0 
-    meteo_index = 0
+    meteo_index = 0 # index correspondant au fichier meteo
     for i in range(len(bg)):
         hour = bg.iloc[index]["HOUR"]
         if (hour == bg.iloc[i]["HOUR"]) :
@@ -42,14 +42,14 @@ for building in range(len(building_index)):
                                     "P" : [P/buffer],
                                     "T" : [nan]})
             
-            if(bg.iloc[i-1]["MO"] == meteo.iloc[meteo_index]["MO"] and 
+            if(bg.iloc[i-1]["MO"] == meteo.iloc[meteo_index]["MO"] and                  # Verifie que le température correspond a la bonne valeur du mois/jour/heure
             bg.iloc[i-1]["DY"] == meteo.iloc[meteo_index]["DY"] and
                 bg.iloc[i-1]["HOUR"] == meteo.iloc[meteo_index]["HOUR"] ):
                 
                 Q_var["T"] = meteo.iloc[meteo_index]["T"]
                 meteo_index = meteo_index + 1
             else :
-                while not (bg.iloc[i-1]["MO"] == meteo.iloc[meteo_index]["MO"] and 
+                while not (bg.iloc[i-1]["MO"] == meteo.iloc[meteo_index]["MO"] and      # Si pas la bonne valeur du mois/jour/heure on incremente meteo_index pour retrouver la bonne valeur
                 bg.iloc[i-1]["DY"] == meteo.iloc[meteo_index]["DY"] and
                 bg.iloc[i-1]["HOUR"] == meteo.iloc[meteo_index]["HOUR"]) :
                     
