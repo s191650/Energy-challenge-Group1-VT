@@ -54,5 +54,3 @@ for j in range(size_col):
     plt.clf()
     
     print(str(bg.index[j])+" printed")
-
-
