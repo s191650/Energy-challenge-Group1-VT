@@ -21,9 +21,9 @@ for building in range(len(building_index)):
 
     # Load curve
     plt.plot(np.arange(len(Q)), Q.iloc[:]["P"])
-    plt.grid()
     plt.xlabel(r"$\tau$, time")
     plt.ylabel(r"Q$_{load}$ [kW]")
+    plt.xticks([15*24,46*24,74*24,105*24,135*24,166*24,196*24,227*24,258*24,288*24,319*24,349*24],["Jan-15","Feb-15","Mar-15","Apr-15","May-15","Jun-15","Jul-15","Aug-15","Sep-15","Oct-15","Nov-15","Dec-15"],rotation = 45)
     plt.title(str(building_index[building])+" load curve")
     plt.fill_between(np.arange(len(Q)), Q.iloc[:]["P"], 0, color='#1f77b4', alpha=1)
     plt.savefig(f"Experimental energy signature/Load-curve/{str(building_index[building])}-load-curve.png")
